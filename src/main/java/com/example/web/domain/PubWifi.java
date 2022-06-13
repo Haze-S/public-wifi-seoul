@@ -1,6 +1,4 @@
-package com.example.web.entity;
-
-import java.time.Year;
+package com.example.web.domain;
 
 public class PubWifi {
     private String mgrNo;
