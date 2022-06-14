@@ -1,8 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
-<%-- TODO : 외부 css 파일로 --%>
         <style>
             div {
                 height: 40px;
@@ -33,14 +32,14 @@
         <div>
             <a href="#">홈</a>
             <a href="#">위치 히스토리 목록</a>
-            <a href="#">Open API 와이파이 정보 가져오기</a>
+            <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a>
         </div>
 
         <form>
-            <label> LAT :
+            <label> LNT :
                 <input type="text" placeholder="0.0">
             </label>
-            <label> LNT :
+            <label> LAT :
                 <input type="text" placeholder="0.0">
             </label>
             <button type="submit">내 위치 가져오기</button>
