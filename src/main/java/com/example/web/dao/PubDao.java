@@ -1,63 +1,125 @@
 package com.example.web.dao;
 
-
-//  http://openapi.seoul.go.kr:8088/6d50464258736b6438386674554155/json/TbPublicWifiInfo/5/1000
-
+import com.example.web.common.Db;
 import com.example.web.domain.PubWifi;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PubDao {
 
-    public static List<PubWifi> list() {
+    public void insert(PubWifi pubWifi) {
 
-        ConnectDB.connect();
-        List<PubWifi> wifiList = new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
+        Connection conn = null;
+        PreparedStatement stat = null;
+
 
         try {
 
-            String sql = "select MGR_NO from PUB_WIFI";
+            conn = DriverManager.getConnection(Db.URL);
 
-            preparedStatement = ConnectDB.connection.prepareStatement(sql);
-//            preparedStatement.setString();
-            rs = preparedStatement.executeQuery();
+            String sql = "INSERT INTO PUB_WIFI VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
-            System.out.println(rs.getString("MGR_NO"));
+            stat = conn.prepareStatement(sql);
+            stat.setString(1, pubWifi.getMgrNo());
+            stat.setString(2, pubWifi.getRegion());
+            stat.setString(3, pubWifi.getMainNm());
+            stat.setString(4, pubWifi.getAddress());
+            stat.setString(5, pubWifi.getAddressDetail());
+            stat.setString(6, pubWifi.getInstallFloor());
+            stat.setString(7, pubWifi.getInstallTy());
+            stat.setString(8, pubWifi.getInstallMby());
+            stat.setString(9, pubWifi.getServiceSe());
+            stat.setString(10, pubWifi.getNetworkTy());
+            stat.setString(11, pubWifi.getInstallYear());
+            stat.setString(12, pubWifi.getIsOutdoor());
+            stat.setString(13, pubWifi.getConnectEnv());
+            stat.setString(14, pubWifi.getLongitude());
+            stat.setString(15, pubWifi.getLatitude());
+            stat.setString(16, pubWifi.getWorkDate());
 
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + " : " + e.getMessage());
-            System.exit(0);
+            int affected = stat.executeUpdate();
+
+            if (affected < 0) {
+                System.out.println("저장 실패");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
+
             try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
+                if (stat != null && !stat.isClosed()) {
+                    stat.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
             try {
-                if (preparedStatement != null && !preparedStatement.isClosed()) {
-                    preparedStatement.close();
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            try {
-                if (ConnectDB.connection != null && !ConnectDB.connection.isClosed()) {
-                    ConnectDB.connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
 
-        return wifiList;
+    }
+
+//    public static List<PubWifi> list() {
+//        List<PubWifi> wifiList = new ArrayList<>();
+//        return wifiList;
+//    }
+
+    public void deleteAll() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Connection conn = null;
+        PreparedStatement stat = null;
+
+        String sql = "DELETE FROM PUB_WIFI";
+
+        try {
+
+            conn = DriverManager.getConnection(Db.URL);
+            stat = conn.prepareStatement(sql);
+
+            int affected = stat.executeUpdate();
+
+            if (affected < 0) {
+                System.out.println("리셋 실패");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (stat != null && !stat.isClosed()) {
+                    stat.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

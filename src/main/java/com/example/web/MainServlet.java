@@ -1,7 +1,6 @@
 package com.example.web;
 
 import java.io.*;
-import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
@@ -11,7 +10,7 @@ public class MainServlet extends HttpServlet {
         System.out.println("Init!!!");
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("doGet!!!");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -21,4 +20,5 @@ public class MainServlet extends HttpServlet {
     public void destroy() {
         System.out.println("destroy!!!");
     }
+
 }

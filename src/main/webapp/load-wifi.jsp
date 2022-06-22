@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.example.web.service.PubService" %><%--
   Created by IntelliJ IDEA.
   User: home
   Date: 2022/06/14
@@ -14,7 +14,11 @@
     <body>
         <h1>
             <%
-                out.write("hello");
+                PubService pubService = new PubService();
+                pubService.reset();
+                int total = pubService.getTotal();
+                out.write(String.valueOf(total));
+                pubService.insertData();
             %>
             개의 WIFI 정보를 정상적으로 저장하였습니다.
         </h1>
