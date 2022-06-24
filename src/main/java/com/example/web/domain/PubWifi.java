@@ -2,11 +2,10 @@ package com.example.web.domain;
 
 import lombok.*;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PubWifi {
+    private String dist;
     private String mgrNo;
     private String region;
     private String mainNm;
@@ -23,6 +22,14 @@ public class PubWifi {
     private String longitude;
     private String latitude;
     private String workDate;
+
+    public String getDist() {
+        return dist;
+    }
+
+    public void setDist(String dist) {
+        this.dist = dist;
+    }
 
     public String getMgrNo() {
         return mgrNo;

@@ -1,5 +1,3 @@
-<%@ page import="com.example.web.service.PubService" %>
-<%@ page import="org.json.simple.parser.ParseException" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +23,10 @@
                 color: #fff;
                 padding: 10px 0;
             }
+            table tbody td {
+                text-align: center;
+                padding: 10px 0;
+            }
         </style>
         <title>와이파이 정보 구하기</title>
     </head>
@@ -37,6 +39,7 @@
             <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a>
         </div>
 
+<%-- TODO : Parameter 넘기기 --%>
         <form>
             <label> LNT :
                 <input type="text" placeholder="0.0">
@@ -44,8 +47,12 @@
             <label> LAT :
                 <input type="text" placeholder="0.0">
             </label>
-            <button type="submit">내 위치 가져오기</button>
-            <button type="button">근처 WIPI 정보 보기</button>
+            <a href="https://www.google.co.kr/maps/" target="_blank">
+                <button type="button">내 위치 가져오기</button>
+            </a>
+            <a href="index.jsp">
+                <button type="button">근처 WIPI 정보 보기</button>
+            </a>
         </form>
 
         <table>
@@ -70,9 +77,13 @@
                     <th>작업일자</th>
                 </tr>
             </thead>
+
+            <%-- TODO : LIST 화면 출력 --%>
             <tbody>
                 <tr>
-                    <td>위치 정보를 입력한 후에 조회해 주세요.</td>
+                    <td colspan="17">
+                        위치 정보를 입력한 후에 조회해 주세요.
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -1,3 +1,6 @@
+<%@ page import="com.example.web.domain.HistWifi" %>
+<%@ page import="com.example.web.service.HistService" %>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -23,6 +26,9 @@
                 color: #fff;
                 padding: 10px 0;
             }
+            table tbody td {
+                text-align: center;
+            }
         </style>
         <title>와이파이 정보 구하기</title>
     </head>
@@ -35,6 +41,17 @@
             <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a>
         </div>
 
+        <form>
+            <label> LNT :
+                <input type="text" placeholder="0.0">
+            </label>
+            <label> LAT :
+                <input type="text" placeholder="0.0">
+            </label>
+            <button type="submit">내 위치 가져오기</button>
+            <button type="button">근처 WIPI 정보 보기</button>
+        </form>
+
         <table>
             <thead>
                 <tr>
@@ -46,15 +63,31 @@
                 </tr>
             </thead>
             <tbody>
+                <%
+                    HistService histService = new HistService();
+                    List<HistWifi> wifiList = histService.list();
+                    for (HistWifi histWifi : wifiList) {
+                %>
                 <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
+                    <td>
+                        <%= histWifi.getHistNo() %>
+                    </td>
+                    <td>
+                        <%= histWifi.getLongitude() %>
+                    </td>
+                    <td>
+                        <%= histWifi.getLatitude() %>
+                    </td>
+                    <td>
+                        <%= histWifi.getSearchDate() %>
+                    </td>
                     <td>
                         <button type="button">삭제</button>
                     </td>
                 </tr>
+                <%
+                    }
+                %>
             </tbody>
         </table>
 

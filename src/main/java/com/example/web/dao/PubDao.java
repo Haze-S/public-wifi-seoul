@@ -3,13 +3,15 @@ package com.example.web.dao;
 import com.example.web.common.Db;
 import com.example.web.domain.PubWifi;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PubDao {
 
     public void insert(PubWifi pubWifi) {
 
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName(Db.CLASS);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -72,14 +74,110 @@ public class PubDao {
 
     }
 
-//    public static List<PubWifi> list() {
-//        List<PubWifi> wifiList = new ArrayList<>();
-//        return wifiList;
-//    }
+    public List<PubWifi> selectList(double lnt, double lat) {
+        List<PubWifi> wifiList = new ArrayList<>();
+
+        try {
+            Class.forName(Db.CLASS);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Connection conn = null;
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DriverManager.getConnection(Db.URL);
+
+            String sql = "SELECT *," +
+                    "round(6371*acos(cos(radians(?))*cos(radians(LAT))*cos(radians(LNT)-radians(?))+sin(radians(?))*sin(radians(LAT))), 4)" +
+                    "AS DISTANCE" +
+                    "FROM PUB_WIFI" +
+                    "ORDER BY DISTANCE" +
+                    "LIMIT 20";
+            stat = conn.prepareStatement(sql);
+            stat.setString(1, String.valueOf(lat));
+            stat.setString(2, String.valueOf(lnt));
+            stat.setString(3, String.valueOf(lat));
+
+            rs = stat.executeQuery();
+
+            while (rs.next()) {
+                String dist = rs.getString("DISTANCE");
+                String mgrNo = rs.getString("MGR_NO");
+                String wrdofc = rs.getString("WRDOFC");
+                String mainNm = rs.getString("MAIN_NM");
+                String addre1 = rs.getString("ADRES1");
+                String addre2 = rs.getString("ADRES2");
+                String instlFloor = rs.getString("INSTL_FLOOR");
+                String instlTy = rs.getString("INSTL_TY");
+                String instlMby = rs.getString("INSTL_MBY");
+                String svcSe = rs.getString("SVC_SE");
+                String cmcwr = rs.getString("CMCWR");
+                String cnstcYear = rs.getString("CNSTC_YEAR");
+                String inOutDoor = rs.getString("INOUT_DOOR");
+                String remars3 = rs.getString("REMARS3");
+                String lntt = rs.getString("LNT");
+                String latt = rs.getString("LAT");
+                String workDttm = rs.getString("WORK_DTTM" );
+
+                PubWifi pubWifi = new PubWifi();
+                pubWifi.setDist(dist);
+                pubWifi.setMgrNo(mgrNo);
+                pubWifi.setRegion(wrdofc);
+                pubWifi.setMainNm(mainNm);
+                pubWifi.setAddress(addre1);
+                pubWifi.setAddressDetail(addre2);
+                pubWifi.setInstallFloor(instlFloor);
+                pubWifi.setInstallTy(instlTy);
+                pubWifi.setInstallMby(instlMby);
+                pubWifi.setServiceSe(svcSe);
+                pubWifi.setNetworkTy(cmcwr);
+                pubWifi.setInstallYear(cnstcYear);
+                pubWifi.setIsOutdoor(inOutDoor);
+                pubWifi.setConnectEnv(remars3);
+                pubWifi.setLongitude(lntt);
+                pubWifi.setLatitude(latt);
+                pubWifi.setWorkDate(workDttm);
+
+                wifiList.add(pubWifi);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (stat != null && !stat.isClosed()) {
+                    stat.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return wifiList;
+    }
 
     public void deleteAll() {
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName(Db.CLASS);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package com.example.web.service;
 
 import com.example.web.common.Api;
+import com.example.web.common.Db;
 import com.example.web.dao.PubDao;
 import com.example.web.domain.PubWifi;
 import org.json.simple.JSONArray;
@@ -13,6 +14,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PubService {
 
@@ -132,12 +139,9 @@ public class PubService {
     /**
      * return public Wi-Fi list
      */
-    public static void list() {
-//        List<PubWifi> pubWifiList = new ArrayList<>();
-
-
-
-//        return pubWifiList;
+    public List<PubWifi> list(double lnt, double lat) {
+        PubDao pubDao = new PubDao();
+        return pubDao.selectList(lnt, lat);
     }
 
     public void reset() {
