@@ -29,10 +29,6 @@
                 color: #fff;
                 padding: 10px 0;
             }
-            table tbody td {
-                text-align: center;
-                padding: 10px 0;
-            }
         </style>
         <title>와이파이 정보 구하기</title>
     </head>
@@ -94,7 +90,7 @@
                     if (lnt == null && lat == null) {
                 %>
                     <tr>
-                        <td colspan="17">
+                        <td colspan="17" style="text-align: center; padding: 10px 0;">
                             위치 정보를 입력한 후에 조회해 주세요.
                         </td>
                     </tr>

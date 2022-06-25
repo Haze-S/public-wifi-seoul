@@ -98,9 +98,9 @@ public class PubDao {
                     " LIMIT 20;";
 
             stat = conn.prepareStatement(sql);
-            stat.setString(1, String.valueOf(lat));
-            stat.setString(2, String.valueOf(lnt));
-            stat.setString(3, String.valueOf(lat));
+            stat.setString(1, String.valueOf(lnt));
+            stat.setString(2, String.valueOf(lat));
+            stat.setString(3, String.valueOf(lnt));
 
             rs = stat.executeQuery();
 
