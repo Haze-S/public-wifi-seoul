@@ -1,20 +1,22 @@
 package com.example.web;
 
-import java.io.*;
+import com.example.web.domain.HistWifi;
+import com.example.web.service.HistService;
+
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 @WebServlet(name = "helloServlet", value = "/")
 public class MainServlet extends HttpServlet {
+
     public void init() {
         System.out.println("Init!!!");
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response){
         System.out.println("doGet!!!");
         response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html><body bgcolor=\"yellow\">Hello Servlet!</body></html>");
+
     }
 
     public void destroy() {

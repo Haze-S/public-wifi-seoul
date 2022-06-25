@@ -1,48 +1,47 @@
 package com.example.web.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
 public class HistWifi {
     private int histNo;
-    private double longitude;
-    private double latitude;
-    private String searchDate;
-
-    public int getHistNo() {
-        return histNo;
-    }
+    private String longitude;
+    private String latitude;
+    private Date searchDate;
 
     public void setHistNo(int histNo) {
         this.histNo = histNo;
     }
 
-    public double getLongitude() {
+    public int getHistNo() {
+        return histNo;
+    }
+
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public String getSearchDate() {
+    public Date getSearchDate() {
         return searchDate;
     }
 
-    public void setSearchDate(String searchDate) {
+    public void setSearchDate(Date searchDate) {
         this.searchDate = searchDate;
     }
 }

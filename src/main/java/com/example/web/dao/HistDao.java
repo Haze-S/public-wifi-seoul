@@ -24,11 +24,11 @@ public class HistDao {
 
             conn = DriverManager.getConnection(Db.URL);
 
-            String sql = "INSERT INTO HIST(LAT, LNT, SRCH_DTTM) VALUES ( ?, ?, datetime('now', 'localtime'));";
+            String sql = "INSERT INTO HIST(LNT, LAT, SRCH_DTTM) VALUES ( ? , ? , datetime('now', 'localtime'));";
 
             stat = conn.prepareStatement(sql);
-            stat.setString(1, String.valueOf(histWifi.getLatitude()));
-            stat.setString(2, String.valueOf(histWifi.getLongitude()));
+            stat.setString(1, String.valueOf(histWifi.getLongitude()));
+            stat.setString(2, String.valueOf(histWifi.getLatitude()));
 
             int affected = stat.executeUpdate();
 
@@ -85,12 +85,12 @@ public class HistDao {
                 String histNo = rs.getString("HIST_NO");
                 String longitude = rs.getString("LNT");
                 String latitude = rs.getString("LAT");
-                String date = rs.getString("SRCH_DTTM");
+                Date date = rs.getDate("SRCH_DTTM");
 
                 HistWifi histWifi = new HistWifi();
                 histWifi.setHistNo(Integer.parseInt(histNo));
-                histWifi.setLongitude(Double.parseDouble(longitude));
-                histWifi.setLatitude(Double.parseDouble(latitude));
+                histWifi.setLongitude(longitude);
+                histWifi.setLatitude(latitude);
                 histWifi.setSearchDate(date);
 
                 wifiList.add(histWifi);

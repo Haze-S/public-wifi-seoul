@@ -1,11 +1,4 @@
-<%@ page import="com.example.web.service.PubService" %><%--
-  Created by IntelliJ IDEA.
-  User: home
-  Date: 2022/06/14
-  Time: 10:43 PM
-  To change this template use File | Settings | File Templates.
---%>
-
+<%@ page import="com.example.web.service.PubService" %>
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
     <head>

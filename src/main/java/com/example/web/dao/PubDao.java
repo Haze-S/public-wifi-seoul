@@ -74,7 +74,7 @@ public class PubDao {
 
     }
 
-    public List<PubWifi> selectList(double lnt, double lat) {
+    public List<PubWifi> selectList(String lnt, String lat) {
         List<PubWifi> wifiList = new ArrayList<>();
 
         try {
@@ -91,11 +91,12 @@ public class PubDao {
             conn = DriverManager.getConnection(Db.URL);
 
             String sql = "SELECT *," +
-                    "round(6371*acos(cos(radians(?))*cos(radians(LAT))*cos(radians(LNT)-radians(?))+sin(radians(?))*sin(radians(LAT))), 4)" +
-                    "AS DISTANCE" +
-                    "FROM PUB_WIFI" +
-                    "ORDER BY DISTANCE" +
-                    "LIMIT 20";
+                    " round(6371*acos(cos(radians( ? ))*cos(radians(LAT))*cos(radians(LNT)-radians( ? ))+sin(radians( ? ))*sin(radians(LAT))), 4)" +
+                    " AS DISTANCE" +
+                    " FROM PUB_WIFI" +
+                    " ORDER BY DISTANCE" +
+                    " LIMIT 20;";
+
             stat = conn.prepareStatement(sql);
             stat.setString(1, String.valueOf(lat));
             stat.setString(2, String.valueOf(lnt));

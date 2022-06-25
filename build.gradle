@@ -22,6 +22,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     compileOnly 'javax.servlet.jsp:jsp-api:2.2'
 
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
 }

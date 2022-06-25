@@ -15,4 +15,10 @@ public class HistService {
         HistDao histDao = new HistDao();
         return histDao.selectAll();
     }
+
+    public void save(HistWifi histWifi) {
+        HistDao histDao = new HistDao();
+        histDao.insert(histWifi);
+    }
+
 }

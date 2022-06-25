@@ -1,4 +1,10 @@
+<%@ page import="com.example.web.service.PubService" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.web.domain.PubWifi" %>
+<%@ page import="com.example.web.domain.HistWifi" %>
+<%@ page import="com.example.web.service.HistService" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,30 +37,35 @@
         <title>와이파이 정보 구하기</title>
     </head>
     <body>
+
         <h1>와이파이 정보 구하기</h1>
 
         <div>
             <a href="index.jsp">홈</a>
             <a href="history.jsp">위치 히스토리 목록</a>
-            <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a>
+            <a href="load-wifi.jsp">
+                Open API 와이파이 정보 가져오기
+            </a>
         </div>
 
-<%-- TODO : Parameter 넘기기 --%>
-        <form>
+        <form method="get" action="/">
             <label> LNT :
-                <input type="text" placeholder="0.0">
+                <input type="text" placeholder="0.0" name="lnt" id="lnt">
             </label>
             <label> LAT :
-                <input type="text" placeholder="0.0">
+                <input type="text" placeholder="0.0" name="lat" id="lat">
             </label>
             <a href="https://www.google.co.kr/maps/" target="_blank">
                 <button type="button">내 위치 가져오기</button>
             </a>
-            <a href="index.jsp">
-                <button type="button">근처 WIPI 정보 보기</button>
-            </a>
+                <button type="submit">
+                    근처 WIPI 정보 보기
+                </button>
         </form>
-
+        <%
+            String lnt = request.getParameter("lnt");
+            String lat = request.getParameter("lat");
+        %>
         <table>
             <thead>
                 <tr>
@@ -78,15 +89,69 @@
                 </tr>
             </thead>
 
-            <%-- TODO : LIST 화면 출력 --%>
             <tbody>
+                <%
+                    if (lnt == null && lat == null) {
+                %>
+                    <tr>
+                        <td colspan="17">
+                            위치 정보를 입력한 후에 조회해 주세요.
+                        </td>
+                    </tr>
+                <%
+                    } else {
+                        HistWifi histWifi = new HistWifi();
+                        histWifi.setLongitude(lnt);
+                        histWifi.setLatitude(lat);
+
+                        HistService histService = new HistService();
+                        histService.save(histWifi);
+
+                        PubService pubService = new PubService();
+                        List<PubWifi> wifiList = pubService.list(lnt, lat);
+
+                        for (PubWifi pubWifi : wifiList) {
+                %>
                 <tr>
-                    <td colspan="17">
-                        위치 정보를 입력한 후에 조회해 주세요.
-                    </td>
+                    <td> <%= pubWifi.getDist() %> </td>
+                    <td> <%= pubWifi.getMgrNo() %> </td>
+                    <td> <%= pubWifi.getRegion() %> </td>
+                    <td> <%= pubWifi.getMainNm() %> </td>
+                    <td> <%= pubWifi.getAddress() %> </td>
+                    <td> <%= pubWifi.getAddressDetail() %> </td>
+                    <td> <%= pubWifi.getInstallFloor() %> </td>
+                    <td> <%= pubWifi.getInstallTy() %> </td>
+                    <td> <%= pubWifi.getInstallMby() %> </td>
+                    <td> <%= pubWifi.getServiceSe() %> </td>
+                    <td> <%= pubWifi.getNetworkTy() %> </td>
+                    <td> <%= pubWifi.getInstallYear() %> </td>
+                    <td> <%= pubWifi.getIsOutdoor() %> </td>
+                    <td> <%= pubWifi.getConnectEnv() %> </td>
+                    <td> <%= pubWifi.getLongitude() %> </td>
+                    <td> <%= pubWifi.getLatitude() %> </td>
+                    <td> <%= pubWifi.getWorkDate() %> </td>
                 </tr>
+                <%
+                        }
+                    }
+                %>
             </tbody>
         </table>
+        <script>
+            const params = new URLSearchParams(window.location.search)
+            const lnt = params.get("lnt")
+            const lat = params.get("lat")
 
+            if (lnt) {
+                const lntElement = document.getElementById("lnt")
+                lntElement.setAttribute("value", lnt)
+            }
+
+            if (lat) {
+                const latElement = document.getElementById("lat")
+                latElement.setAttribute("value", lat)
+            }
+            console.log(params)
+        </script>
     </body>
 </html>

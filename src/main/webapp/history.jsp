@@ -38,19 +38,10 @@
         <div>
             <a href="index.jsp">홈</a>
             <a href="history.jsp">위치 히스토리 목록</a>
-            <a href="load-wifi.jsp">Open API 와이파이 정보 가져오기</a>
+            <a href="load-wifi.jsp">
+                Open API 와이파이 정보 가져오기
+            </a>
         </div>
-
-        <form>
-            <label> LNT :
-                <input type="text" placeholder="0.0">
-            </label>
-            <label> LAT :
-                <input type="text" placeholder="0.0">
-            </label>
-            <button type="submit">내 위치 가져오기</button>
-            <button type="button">근처 WIPI 정보 보기</button>
-        </form>
 
         <table>
             <thead>

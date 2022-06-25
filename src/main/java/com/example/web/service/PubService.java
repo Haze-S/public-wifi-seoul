@@ -139,7 +139,7 @@ public class PubService {
     /**
      * return public Wi-Fi list
      */
-    public List<PubWifi> list(double lnt, double lat) {
+    public List<PubWifi> list(String lnt, String lat) {
         PubDao pubDao = new PubDao();
         return pubDao.selectList(lnt, lat);
     }
