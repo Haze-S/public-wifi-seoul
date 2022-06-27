@@ -1,9 +1,5 @@
 package com.example.web.domain;
 
-import lombok.*;
-
-@AllArgsConstructor
-@NoArgsConstructor
 public class PubWifi {
     private String dist;
     private String mgrNo;
